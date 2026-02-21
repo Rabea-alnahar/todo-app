@@ -24,3 +24,9 @@ cd frontend
 npm install
 npm run dev
 ```
+
+### Run both (one command)
+```bash
+npm install
+npm run dev
+```
