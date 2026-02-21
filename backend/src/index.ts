@@ -14,6 +14,10 @@ type Todo = {
 let todos: Todo[] = [];
 let nextId = 1;
 
+app.get("/", (req, res) => {
+  res.send("Todo API is running. Try /health or /todos");
+});
+
 app.get("/health", (req, res) => {
   res.json({ status: "ok" });
 });
@@ -36,7 +40,7 @@ app.post("/todos", (req, res) => {
 // 3) Update a todo (title and/or completed)
 app.put("/todos/:id", (req, res) => {
   const id = Number(req.params.id);
-  const todo = todos.find(t => t.id === id);
+  const todo = todos.find((t) => t.id === id);
   if (!todo) return res.status(404).json({ error: "todo not found" });
 
   if (req.body?.title !== undefined) {
@@ -56,7 +60,7 @@ app.put("/todos/:id", (req, res) => {
 app.delete("/todos/:id", (req, res) => {
   const id = Number(req.params.id);
   const before = todos.length;
-  todos = todos.filter(t => t.id !== id);
+  todos = todos.filter((t) => t.id !== id);
   if (todos.length === before) return res.status(404).json({ error: "todo not found" });
 
   res.status(204).send();
@@ -66,4 +70,3 @@ const PORT = 3001;
 app.listen(PORT, () => {
   console.log(`Backend running on http://localhost:${PORT}`);
 });
-
